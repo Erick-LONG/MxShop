@@ -30,6 +30,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#替换系统默认user
+AUTH_USER_MODEL = 'users.UserProfile'
 
 # Application definition
 
