@@ -8,7 +8,7 @@ from goods.models import Goods
 User = get_user_model() #返回User类
 
 
-class ShopingCart(models.Model):
+class ShoppingCart(models.Model):
     '''购物车'''
     user = models.ForeignKey(User,verbose_name='用户')
     goods = models.ForeignKey(Goods,verbose_name='商品')
