@@ -10,7 +10,7 @@ class UserFavAdmin(object):
 
 
 class UserLeavingMessageAdmin(object):
-    list_display = ['user', 'message_type', "message", "add_time"]
+    list_display = ['user', 'msg_type', "message", "add_time"]
 
 
 class UserAddressAdmin(object):
