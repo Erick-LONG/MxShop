@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url,include
 # from django.contrib import admin
 import xadmin
-from goods.views import GoodsListViewSet
+from goods.views import GoodsListViewSet,CategoryViewSet
 from MxShop.settings import MEDIA_ROOT
 from django.views.static import serve
 from rest_framework.documentation import include_docs_urls
@@ -24,7 +24,8 @@ from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 #配置goods URL
-router.register(r'goods',GoodsListViewSet)
+router.register(r'goods',GoodsListViewSet,base_name='goods')
+router.register('categorys',CategoryViewSet,base_name='categorys')
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
