@@ -9,9 +9,9 @@ from .filters import GoodsFilter
 
 class GoodsPagination(PageNumberPagination):
     # 自定义分页
-    page_size = 10
+    page_size = 12
     page_size_query_param = 'page_size'# 要多少条数据
-    page_query_param = 'p'
+    page_query_param = 'page'
     max_page_size = 100
 
 
@@ -25,7 +25,7 @@ class GoodsListViewSet(mixins.ListModelMixin,viewsets.GenericViewSet):
     filter_backends = (DjangoFilterBackend,filters.SearchFilter,filters.OrderingFilter)
     filter_class = GoodsFilter
     search_fields = ('name','goods_brief','goods_desc')
-    ordering_fields = ('sold_num','add_time')
+    ordering_fields = ('sold_num','shop_price')
 
 
 class CategoryViewSet(mixins.ListModelMixin,mixins.RetrieveModelMixin,viewsets.GenericViewSet):
