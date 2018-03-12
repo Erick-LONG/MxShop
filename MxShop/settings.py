@@ -134,6 +134,10 @@ USE_L10N = True
 
 USE_TZ = False
 
+#自定义用户验证（手机）
+AUTHENTICATION_BACKENDS=(
+    'users.views.CustomBackend',
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
@@ -155,4 +159,13 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework_jwt.authentication.JsonWebTokenAuthentication',
     )
+}
+
+#设置用户验证全局过期时间
+# 设置header前缀
+import datetime
+
+JWT_AUTH= {
+    'JWT_EXPIRATION_DELTA':datetime.timedelta(days=7),
+    'JWT_AUTH_HEADER_PREFIX':'JWT',
 }
