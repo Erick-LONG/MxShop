@@ -155,11 +155,10 @@ MEDIA_ROOT= os.path.join(BASE_DIR,'media')
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework_jwt.authentication.JsonWebTokenAuthentication',
-    )
-}
+        'rest_framework.authentication.BasicAuthentication',
+    )}
 
 #设置用户验证全局过期时间
 # 设置header前缀
