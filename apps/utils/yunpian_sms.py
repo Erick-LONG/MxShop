@@ -16,7 +16,7 @@ class Yunpian():
         response = requests.post(self.single_send_url,data=parmas)
         import json
         re_dict = json.loads(response.text)
-        print(re_dict)
+        return re_dict
 
 if __name__=="__main__":
     yunpian = Yunpian('xxxxxx')

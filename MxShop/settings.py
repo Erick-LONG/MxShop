@@ -168,3 +168,9 @@ JWT_AUTH= {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),
     'JWT_AUTH_HEADER_PREFIX': 'JWT',
 }
+
+#手机验证正则表达式
+MOBILE_RE = "^1[358]\d{9}$|^147\d{8}$|^176\d{8}$"
+
+#云片网短信key设置
+API_KEY = 'xxxx'
