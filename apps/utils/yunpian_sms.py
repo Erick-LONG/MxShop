@@ -18,6 +18,7 @@ class Yunpian():
         re_dict = json.loads(response.text)
         return re_dict
 
+
 if __name__=="__main__":
     yunpian = Yunpian('xxxxxx')
     yunpian.send_sms('2018','13121122211')

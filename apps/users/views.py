@@ -73,4 +73,5 @@ class SmsCodeViewSet(CreateModelMixin,viewsets.GenericViewSet):
 class UserViewSet(CreateModelMixin,viewsets.GenericViewSet):
     '''用户'''
     serializer_class = UserRegSerializer
+    queryset = User.objects.all()
 
