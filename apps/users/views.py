@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.db.models import Q
 from rest_framework.mixins import CreateModelMixin
 from rest_framework import viewsets
-from .serializers import SmsSerializer
+from .serializers import SmsSerializer,UserRegSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from MxShop.settings import API_KEY
@@ -68,3 +68,9 @@ class SmsCodeViewSet(CreateModelMixin,viewsets.GenericViewSet):
             code_record = VerifyCode(code=code,mobile=mobile)
             code_record.save()
             return Response({'mobile':mobile},status.HTTP_201_CREATED)
+
+
+class UserViewSet(CreateModelMixin,viewsets.GenericViewSet):
+    '''用户'''
+    serializer_class = UserRegSerializer
+

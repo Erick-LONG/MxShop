@@ -1,6 +1,7 @@
 import re
 from datetime import datetime
 from rest_framework import serializers
+from rest_framework.validators import UniqueValidator
 from django.contrib.auth import get_user_model
 from MxShop.settings import MOBILE_RE,timedelta
 from .models import VerifyCode
@@ -8,6 +9,7 @@ from .models import VerifyCode
 User = get_user_model()
 
 
+#因为前端没有给传code，所以用Serializer
 class SmsSerializer(serializers.Serializer):
 
     mobile = serializers.CharField(max_length=11)
@@ -29,3 +31,36 @@ class SmsSerializer(serializers.Serializer):
             raise serializers.ValidationError('距离上一次发送未超过60s')
 
         return mobile
+
+
+class UserRegSerializer(serializers.ModelSerializer):
+    code = serializers.CharField(required=True,max_length=4,min_length=4,error_messages={
+                                                                        'blank':'请输入验证码',
+                                                                        'required':'请输入验证码',
+                                                                        'max_length':'验证码格式错误',
+                                                                        'min_length': '验证码格式错误',
+                                                                    },help_text='验证码')
+    username = serializers.CharField(required=True,allow_blank=False,
+                                     validators=[UniqueValidator(queryset=User.objects.all(),message='用戶已經存在') ])
+
+    def validate_code(self, code):
+        verify_record = VerifyCode.objects.filter(mobile=self.initial_data['username']).order_by('-add_time')
+        if verify_record:
+            last_record = verify_record[0]
+            five_mintes_ago = datetime.now() - timedelta(hours=0, minutes=5, seconds=0)
+            if five_mintes_ago < last_record.add_time:
+                raise serializers.ValidationError('验证码过期')
+            if last_record != code:
+                raise serializers.ValidationError('验证码错误')
+        else:
+            raise serializers.ValidationError('验证码错误')
+
+    #作用于所有serializer字段之上，attrs返回所有字段的字典
+    def validate(self, attrs):
+        attrs['mobile'] = attrs['username']
+        del attrs['code']
+        return attrs
+
+    class Meta:
+        model = User
+        fields = ('username','code','mobile')

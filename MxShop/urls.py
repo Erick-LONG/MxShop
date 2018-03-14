@@ -17,7 +17,7 @@ from django.conf.urls import url,include
 # from django.contrib import admin
 import xadmin
 from goods.views import GoodsListViewSet,CategoryViewSet
-from users.views import SmsCodeViewSet
+from users.views import SmsCodeViewSet,UserViewSet
 from MxShop.settings import MEDIA_ROOT
 from django.views.static import serve
 from rest_framework.documentation import include_docs_urls
@@ -31,6 +31,7 @@ router.register(r'goods',GoodsListViewSet,base_name='goods')
 router.register('categorys',CategoryViewSet,base_name='categorys')
 
 router.register('codes',SmsCodeViewSet,base_name='codes')
+router.register('users',UserViewSet,base_name='users')
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
