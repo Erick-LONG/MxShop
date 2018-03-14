@@ -1,9 +1,9 @@
 import re
-from datetime import datetime
+from datetime import datetime,timedelta
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth import get_user_model
-from MxShop.settings import MOBILE_RE,timedelta
+from MxShop.settings import MOBILE_RE
 from .models import VerifyCode
 
 User = get_user_model()
