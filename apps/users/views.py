@@ -73,7 +73,7 @@ class SmsCodeViewSet(CreateModelMixin,viewsets.GenericViewSet):
             return Response({'mobile':mobile},status.HTTP_201_CREATED)
 
 
-class UserViewSet(CreateModelMixin,mixins.RetrieveModelMixin,viewsets.GenericViewSet):
+class UserViewSet(CreateModelMixin,mixins.UpdateModelMixin,mixins.RetrieveModelMixin,viewsets.GenericViewSet):
     '''用户'''
     serializer_class = UserRegSerializer
     queryset = User.objects.all()
