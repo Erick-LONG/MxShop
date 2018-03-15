@@ -18,6 +18,7 @@ from django.conf.urls import url,include
 import xadmin
 from goods.views import GoodsListViewSet,CategoryViewSet
 from users.views import SmsCodeViewSet,UserViewSet
+from user_operation.views import UserFavViewSet
 from MxShop.settings import MEDIA_ROOT
 from django.views.static import serve
 from rest_framework.documentation import include_docs_urls
@@ -30,8 +31,12 @@ router = DefaultRouter()
 router.register(r'goods',GoodsListViewSet,base_name='goods')
 router.register('categorys',CategoryViewSet,base_name='categorys')
 
+#用户登录
 router.register('codes',SmsCodeViewSet,base_name='codes')
 router.register('users',UserViewSet,base_name='users')
+
+#用户收藏
+router.register('userfavs',UserFavViewSet,base_name='userfavs')
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
