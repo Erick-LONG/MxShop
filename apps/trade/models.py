@@ -12,16 +12,17 @@ class ShoppingCart(models.Model):
     '''购物车'''
     user = models.ForeignKey(User,verbose_name='用户')
     goods = models.ForeignKey(Goods,verbose_name='商品')
-    goods_num = models.IntegerField(default=0,verbose_name='购买数量')
+    nums = models.IntegerField(default=0,verbose_name='购买数量')
 
     add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
 
     class Meta:
         verbose_name = '购物车'
         verbose_name_plural = verbose_name
+        unique_together = ('user','goods')
 
     def __str__(self):
-        return '%s(%d)' % (self.goods.name,self.goods_num)
+        return '%s(%d)' % (self.goods.name,self.nums)
 
 
 class OrderInfo(models.Model):
