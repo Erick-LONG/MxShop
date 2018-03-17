@@ -3,11 +3,11 @@ from rest_framework import viewsets
 from rest_framework import mixins
 from rest_framework.permissions import IsAuthenticated
 from .serializer import UserFavSerializer
-from .models import UserFav,UserLeavingMessage
+from .models import UserFav,UserLeavingMessage,UserAddress
 from utils.permissions import IsOwnerOrReadOnly
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework.authentication import SessionAuthentication
-from .serializer import UserFavSerializer,UserFavDetailSerializer,LeavingMessageSerializer
+from .serializer import UserFavSerializer,UserFavDetailSerializer,LeavingMessageSerializer,AddressSerializer
 
 
 class UserFavViewSet(mixins.CreateModelMixin,mixins.ListModelMixin,mixins.DestroyModelMixin,viewsets.GenericViewSet):
@@ -51,3 +51,23 @@ class LeavingMessageViewSet(mixins.ListModelMixin,mixins.DestroyModelMixin,mixin
 
     def get_queryset(self):
         return UserLeavingMessage.objects .filter(user = self.request.user)
+
+
+class AddressViewSet(viewsets.ModelViewSet):
+    '''
+    收货地址管理
+    list:
+        获取收货地址
+    create：
+        添加收货地址
+    update：
+        更新收货地址
+    delete：
+        删除更新收货地址
+    '''
+    permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
+    authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
+    serializer_class = AddressSerializer
+
+    def get_queryset(self):
+        return UserAddress.objects.filter(user=self.request.user)
