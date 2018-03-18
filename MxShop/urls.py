@@ -18,7 +18,7 @@ from django.conf.urls import url,include
 import xadmin
 from goods.views import GoodsListViewSet,CategoryViewSet
 from users.views import SmsCodeViewSet,UserViewSet
-from trade.views import ShoppingCartViewSet
+from trade.views import ShoppingCartViewSet,OrderViewSet
 from user_operation.views import UserFavViewSet,LeavingMessageViewSet,AddressViewSet
 from MxShop.settings import MEDIA_ROOT
 from django.views.static import serve
@@ -47,6 +47,9 @@ router.register('address',AddressViewSet,base_name='address')
 
 #购物车
 router.register('shopcarts',ShoppingCartViewSet,base_name='shopcarts')
+
+#订单相关
+router.register('orders',OrderViewSet,base_name='orders')
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
