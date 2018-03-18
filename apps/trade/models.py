@@ -47,7 +47,7 @@ class OrderInfo(models.Model):
 
     #用户信息
     address = models.CharField(max_length=100,default='',verbose_name='收货地址')
-    signer_name = models.CharField(max_length=20,default='',verbose_name='收件人')
+    signer_name = models.CharField(max_length=20,default='',verbose_name='收件人 ')
     signer_mobile = models.CharField(max_length=11,default='',verbose_name='联系电话')
 
     add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
@@ -62,7 +62,7 @@ class OrderInfo(models.Model):
 
 class OrderGoods(models.Model):
     '''订单商品详情'''
-    order = models.ForeignKey(OrderInfo,verbose_name='订单信息')
+    order = models.ForeignKey(OrderInfo,verbose_name='订单信息',related_name='goods')
     goods = models.ForeignKey(Goods,verbose_name='商品')
     goods_num = models.IntegerField(default=0,verbose_name='商品数量')
 

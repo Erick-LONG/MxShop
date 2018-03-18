@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from utils.permissions import IsOwnerOrReadOnly
 from rest_framework.authentication import SessionAuthentication
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
-from .serializer import ShopCartSerializer,ShopCartDetailSerializer,OrderSerializer
+from .serializer import ShopCartSerializer,ShopCartDetailSerializer,OrderSerializer,OrderDetailSerializer
 from .models import ShoppingCart,OrderInfo,OrderGoods
 # Create your views here.
 
@@ -32,13 +32,18 @@ class ShoppingCartViewSet(viewsets.ModelViewSet):
         return ShoppingCart.objects.filter(user=self.request.user)
 
 
-class OrderViewSet(mixins.ListModelMixin,mixins.CreateModelMixin,mixins.DestroyModelMixin,viewsets.GenericViewSet):
+class OrderViewSet(mixins.ListModelMixin,mixins.RetrieveModelMixin,mixins.CreateModelMixin,mixins.DestroyModelMixin,viewsets.GenericViewSet):
     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
     authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
     serializer_class = OrderSerializer
 
     def get_queryset(self):
         return OrderInfo.objects.filter(user=self.request.user)
+
+    def get_serializer_class(self):
+        if self.action == 'retrieve':
+            return OrderDetailSerializer
+        return OrderSerializer
 
     def perform_create(self, serializer):
         order = serializer.save()

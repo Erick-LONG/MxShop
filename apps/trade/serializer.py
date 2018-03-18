@@ -1,7 +1,7 @@
 import time
 from rest_framework import serializers
 from goods.models import Goods
-from .models import ShoppingCart,OrderInfo
+from .models import ShoppingCart,OrderInfo,OrderGoods
 from goods.serializers import GoodsSerializer
 
 
@@ -43,6 +43,20 @@ class ShopCartSerializer(serializers.Serializer):
         instance.nums = validated_data['nums']
         instance.save()
         return instance
+
+
+class OrderGoodsSerializer(serializers.ModelSerializer):
+    goods = GoodsSerializer(many=False)
+    class Meta:
+        model = OrderGoods
+        fields = '__all__'
+
+
+class OrderDetailSerializer(serializers.ModelSerializer):
+    goods = OrderGoodsSerializer(many=True)
+    class Meta:
+        model = OrderInfo
+        fields = '__all__'
 
 
 class OrderSerializer(serializers.ModelSerializer):
