@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url,include
 # from django.contrib import admin
 import xadmin
-from goods.views import GoodsListViewSet,CategoryViewSet
+from goods.views import GoodsListViewSet,CategoryViewSet,BannerViewset
 from users.views import SmsCodeViewSet,UserViewSet
 from trade.views import ShoppingCartViewSet,OrderViewSet
 from user_operation.views import UserFavViewSet,LeavingMessageViewSet,AddressViewSet
@@ -50,6 +50,9 @@ router.register('shopcarts',ShoppingCartViewSet,base_name='shopcarts')
 
 #订单相关
 router.register('orders',OrderViewSet,base_name='orders')
+
+#轮播图url
+router.register('banners',BannerViewset,base_name='banners')
 
 from django.views.generic import TemplateView
 from trade.views import AliPayView

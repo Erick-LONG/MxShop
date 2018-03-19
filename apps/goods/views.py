@@ -1,5 +1,5 @@
-from .serializers import GoodsSerializer,CategorySerializer
-from .models import Goods,GoodsCategory
+from .serializers import GoodsSerializer,CategorySerializer,BannerSerializer
+from .models import Goods,GoodsCategory,Banner
 from rest_framework import generics,viewsets,mixins,filters
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.authentication import TokenAuthentication
@@ -38,4 +38,16 @@ class CategoryViewSet(mixins.ListModelMixin,mixins.RetrieveModelMixin,viewsets.G
     queryset = GoodsCategory.objects.filter(category_type=1)
     serializer_class = CategorySerializer
 
+
+class HotSearchViewset(mixins.ListModelMixin,viewsets.GenericViewSet):
+    queryset = []
+    serializer_class = ''
+
+
+class BannerViewset(mixins.ListModelMixin,viewsets.GenericViewSet):
+    '''
+    获取轮播图列表
+    '''
+    queryset = Banner.objects.all().order_by('index')
+    serializer_class = BannerSerializer
 
