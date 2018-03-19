@@ -51,10 +51,13 @@ router.register('shopcarts',ShoppingCartViewSet,base_name='shopcarts')
 #订单相关
 router.register('orders',OrderViewSet,base_name='orders')
 
+from django.views.generic import TemplateView
+from trade.views import AliPayView
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
     url(r'^media/(?P<path>.*)$',serve,{'document_root':MEDIA_ROOT}),
     url(r'^',include(router.urls)),
+    url(r'^index/',TemplateView.as_view(template_name='index.html'),name='index'),
     url(r'docs/',include_docs_urls(title='慕学生鲜')),
     url(r'^api-auth/', include('rest_framework.urls')),
 
@@ -62,5 +65,8 @@ urlpatterns = [
     url(r'^api-token-auth/', views.obtain_auth_token),
 
     #jwt的认证接口
-    url(r'^login/', obtain_jwt_token)
+    url(r'^login/', obtain_jwt_token),
+
+    #jwt的认证接口
+    url(r'^alipay/return/', AliPayView.as_view(),name='alipay')
 ]
