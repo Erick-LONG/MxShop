@@ -3,7 +3,7 @@
 
 
 import xadmin
-from .models import Goods, GoodsCategory, GoodsImage, GoodsCategoryBrand, Banner
+from .models import Goods, GoodsCategory, GoodsImage, GoodsCategoryBrand, Banner,IndexAD
 
 
 class GoodsAdmin(object):
@@ -44,10 +44,15 @@ class BannerGoodsAdmin(object):
     list_display = ["goods", "image", "index"]
 
 
+class IndexADAdmin(object):
+    list_display = ["category","goods"]
+
+
 xadmin.site.register(Goods, GoodsAdmin)
 xadmin.site.register(GoodsCategory, GoodsCategoryAdmin)
 xadmin.site.register(Banner, BannerGoodsAdmin)
 xadmin.site.register(GoodsCategoryBrand, GoodsBrandAdmin)
+xadmin.site.register(IndexAD, IndexADAdmin)
 
 
 

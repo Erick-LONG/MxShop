@@ -1,4 +1,4 @@
-from .serializers import GoodsSerializer,CategorySerializer,BannerSerializer
+from .serializers import GoodsSerializer,CategorySerializer,BannerSerializer,IndexCategorySerializer
 from .models import Goods,GoodsCategory,Banner
 from rest_framework import generics,viewsets,mixins,filters
 from rest_framework.pagination import PageNumberPagination
@@ -50,4 +50,10 @@ class BannerViewset(mixins.ListModelMixin,viewsets.GenericViewSet):
     '''
     queryset = Banner.objects.all().order_by('index')
     serializer_class = BannerSerializer
+
+
+class IndexCategoryViewset(mixins.ListModelMixin,viewsets.GenericViewSet):
+    '''首页商品分类数据'''
+    queryset = GoodsCategory.objects.filter(is_tab=True,)
+    serializer_class = IndexCategorySerializer
 
