@@ -163,6 +163,11 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
     )}
 
+#全局缓存失效时间，5秒钟
+REST_FRAMEWORK_EXTEBSIONS = {
+    'DEFAULT_CACHE_RESPONSE_TIMEOUT':5,
+}
+
 #设置用户验证全局过期时间
 # 设置header前缀
 import datetime

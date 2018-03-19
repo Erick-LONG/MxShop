@@ -6,6 +6,7 @@ from rest_framework.authentication import TokenAuthentication
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
 from .filters import GoodsFilter
+from rest_framework_extensions.cache.mixins import CacheResponseMixin
 # Create your views here.
 
 
@@ -17,7 +18,7 @@ class GoodsPagination(PageNumberPagination):
     max_page_size = 100
 
 
-class GoodsListViewSet(mixins.ListModelMixin,mixins.RetrieveModelMixin,viewsets.GenericViewSet):
+class GoodsListViewSet(CacheResponseMixin,mixins.ListModelMixin,mixins.RetrieveModelMixin,viewsets.GenericViewSet):
     """
     商品列表页,分页，搜索，过滤，排序
     """
