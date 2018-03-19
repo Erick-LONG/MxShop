@@ -26,6 +26,12 @@ class UserFavViewSet(mixins.CreateModelMixin,mixins.ListModelMixin,mixins.Destro
     def get_queryset(self):
         return UserFav.objects.filter(user = self.request.user)
 
+    # def perform_create(self, serializer):
+    #     instance = serializer.save()
+    #     goods = instance.goods
+    #     goods.fav_num +=1
+    #     goods.save()
+
     def get_serializer_class(self):
         #自定义获取用户收藏详情和添加删除收藏
         if self.action =='list':
