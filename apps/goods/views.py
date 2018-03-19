@@ -7,6 +7,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
 from .filters import GoodsFilter
 from rest_framework_extensions.cache.mixins import CacheResponseMixin
+from rest_framework.throttling import UserRateThrottle,AnonRateThrottle
 # Create your views here.
 
 
@@ -22,6 +23,8 @@ class GoodsListViewSet(CacheResponseMixin,mixins.ListModelMixin,mixins.RetrieveM
     """
     商品列表页,分页，搜索，过滤，排序
     """
+    #限速
+    throttle_classes = (UserRateThrottle,AnonRateThrottle)
     queryset = Goods.objects.all().order_by('-add_time')
     serializer_class = GoodsSerializer
     pagination_class = GoodsPagination
