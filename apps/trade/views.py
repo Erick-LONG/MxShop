@@ -27,6 +27,30 @@ class ShoppingCartViewSet(viewsets.ModelViewSet):
         else:
             return ShopCartSerializer
 
+    #新增商品到购物车
+    def perform_create(self, serializer):
+        shop_cart = serializer.save()
+        goods= shop_cart.goods
+        goods.goods_num -= shop_cart.nums
+        goods.save()
+
+    #删除购物车记录
+    def perform_destroy(self, instance):
+        goods = instance.goods
+        goods.goods_num +=instance.nums
+        goods.save()
+        instance.delete()
+
+    #修改购物车数量
+    def perform_update(self, serializer):
+        exited_record = ShoppingCart.objects.get(id=serializer.instance.id)
+        exited_nums = exited_record.nums
+        save_record = serializer.save()
+        nums = save_record.nums-exited_nums
+        goods = save_record.goods
+        goods.goods_num -=nums
+        goods.save()
+
 
     #返回当前用户列表
     def get_queryset(self):
@@ -94,6 +118,13 @@ class AliPayView(APIView):
 
             existed_orders = OrderInfo.objects.filter(order_sn=order_sn)
             for existed_order in existed_orders:
+                #商品数量修改
+                order_goods = existed_order.goods.all()
+                for order_good in order_goods:
+                    goods = order_good.goods
+                    goods.sold_num += order_goods.goods_num
+                    goods.save()
+
                 existed_order.pay_status = trade_status
                 existed_order.trade_no = trade_no
                 existed_order.pay_time = datetime.now()
