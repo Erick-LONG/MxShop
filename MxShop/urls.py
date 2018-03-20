@@ -71,8 +71,10 @@ urlpatterns = [
     url(r'^api-token-auth/', views.obtain_auth_token),
 
     #jwt的认证接口
-    url(r'^login/', obtain_jwt_token),
+    url(r'^login/$', obtain_jwt_token),
 
     #jwt的认证接口
-    url(r'^alipay/return/', AliPayView.as_view(),name='alipay')
+    url(r'^alipay/return/', AliPayView.as_view(),name='alipay'),
+    #第三方登录
+    url('', include('social_django.urls', namespace='social'))
 ]

@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django_filters',
     'corsheaders',
     'rest_framework.authtoken',
+    'social_django'
 ]
 
 MIDDLEWARE = [
@@ -80,6 +81,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -137,6 +140,10 @@ USE_TZ = False
 #自定义用户验证（手机）
 AUTHENTICATION_BACKENDS=(
     'users.views.CustomBackend',
+    'social_core.backends.weibo.WeiboOAuth2',
+    'social_core.backends.qq.QQOAuth2',
+    'social_core.backends.weixin.WeixinOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
 )
 
 # Static files (CSS, JavaScript, Images)
@@ -209,3 +216,16 @@ CACHES = {
 
     }
 }
+
+#
+SOCIAL_AUTH_WEIBO_KEY = 'foobarxx'
+SOCIAL_AUTH_WEIBO_SECRET = 'bazqux'
+
+SOCIAL_AUTH_QQ_KEY = 'foobar'
+SOCIAL_AUTH_QQ_SECRET = 'bazqux'
+
+SOCIAL_AUTH_WEIXIN_KEY = 'foobar'
+SOCIAL_AUTH_WEIXIN_SECRET = 'bazqux'
+
+#用户登录成功后跳转到首页
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/index/'
