@@ -52,7 +52,8 @@ INSTALLED_APPS = [
     'django_filters',
     'corsheaders',
     'rest_framework.authtoken',
-    'social_django'
+    'social_django',
+    'raven.contrib.django.raven_compat',
 ]
 
 MIDDLEWARE = [
@@ -229,3 +230,8 @@ SOCIAL_AUTH_WEIXIN_SECRET = 'bazqux'
 
 #用户登录成功后跳转到首页
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/index/'
+
+#sentry配置
+RAVEN_CONFIG={
+    'dsn':'',
+}
